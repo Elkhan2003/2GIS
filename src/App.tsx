@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import Mapgl from "./Mapgl";
 import { MapglContextProvider } from "./MapglContext";
 import ButtonRulerAddPreset from "./ButtonRulerAddPreset";

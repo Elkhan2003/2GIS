@@ -1,90 +1,90 @@
-import { useEffect } from 'react';
-import { load } from '@2gis/mapgl';
-import { useMapglContext } from './MapglContext';
-import { Clusterer } from '@2gis/mapgl-clusterer';
-import { RulerControl } from '@2gis/mapgl-ruler';
-import { Directions } from '@2gis/mapgl-directions';
-import { useControlRotateClockwise } from './useControlRotateClockwise';
-import { ControlRotateCounterclockwise } from './ControlRotateConterclockwise';
-import { MapWrapper } from './MapWrapper';
+import { useEffect } from "react";
+import { load } from "@2gis/mapgl";
+import { useMapglContext } from "./MapglContext";
+import { Clusterer } from "@2gis/mapgl-clusterer";
+import { RulerControl } from "@2gis/mapgl-ruler";
+import { Directions } from "@2gis/mapgl-directions";
+import { useControlRotateClockwise } from "./useControlRotateClockwise";
+import { ControlRotateCounterclockwise } from "./ControlRotateConterclockwise";
+import { MapWrapper } from "./MapWrapper";
 
 export const MAP_CENTER = [55.31878, 25.23584];
 
 export default function Mapgl() {
-    const { setMapglContext } = useMapglContext();
+	const { setMapglContext } = useMapglContext();
 
-    useEffect(() => {
-        let map: mapgl.Map | undefined = undefined;
-        let directions: Directions | undefined = undefined;
-        let clusterer: Clusterer | undefined = undefined;
+	useEffect(() => {
+		let map: mapgl.Map | undefined = undefined;
+		let directions: Directions | undefined = undefined;
+		let clusterer: Clusterer | undefined = undefined;
 
-        load().then((mapgl) => {
-            map = new mapgl.Map('map-container', {
-                center: MAP_CENTER,
-                zoom: 13,
-                key: 'a1893935-6834-4445-b97a-3405fb426c5b',
-            });
+		load().then((mapgl) => {
+			map = new mapgl.Map("map-container", {
+				center: MAP_CENTER,
+				zoom: 13,
+				key: "a1893935-6834-4445-b97a-3405fb426c5b",
+			});
 
-            map.on('click', (e) => console.log(e));
+			map.on("click", (e) => console.log(e));
 
-            /**
-             * Ruler  plugin
-             */
+			/**
+			 * Ruler  plugin
+			 */
 
-            const rulerControl = new RulerControl(map, { position: 'centerRight' });
+			const rulerControl = new RulerControl(map, { position: "centerRight" });
 
-            /**
-             * Clusterer plugin
-             */
+			/**
+			 * Clusterer plugin
+			 */
 
-            clusterer = new Clusterer(map, {
-                radius: 60,
-            });
+			clusterer = new Clusterer(map, {
+				radius: 60,
+			});
 
-            const markers = [
-                { coordinates: [55.27887, 25.21001] },
-                { coordinates: [55.30771, 25.20314] },
-                { coordinates: [55.35266, 25.24382] },
-            ];
-            clusterer.load(markers);
+			const markers = [
+				{ coordinates: [55.27887, 25.21001] },
+				{ coordinates: [55.30771, 25.20314] },
+				{ coordinates: [55.35266, 25.24382] },
+			];
+			clusterer.load(markers);
 
-            /**
-             * Directions plugin
-             */
+			/**
+			 * Directions plugin
+			 */
 
-            directions = new Directions(map, {
-                directionsApiKey: 'rujany4131', // It's just demo key
-            });
+			directions = new Directions(map, {
+				directionsApiKey: "rujany4131", // It's just demo key
+			});
 
-            directions.carRoute({
-                points: [
-                    [55.28273111108218, 25.234131928828333],
-                    [55.35242563034581, 25.23925607042088],
-                ],
-            });
+			directions.carRoute({
+				points: [
+					[55.28273111108218, 25.234131928828333],
+					[55.35242563034581, 25.23925607042088],
+				],
+			});
 
-            setMapglContext({
-                mapglInstance: map,
-                rulerControl,
-                mapgl,
-            });
-        });
+			setMapglContext({
+				mapglInstance: map,
+				rulerControl,
+				mapgl,
+			});
+		});
 
-        // Destroy the map, if Map component is going to be unmounted
-        return () => {
-            directions && directions.clear();
-            clusterer && clusterer.destroy();
-            map && map.destroy();
-            setMapglContext({ mapglInstance: undefined, mapgl: undefined });
-        };
-    }, [setMapglContext]);
+		// Destroy the map, if Map component is going to be unmounted
+		return () => {
+			directions && directions.clear();
+			clusterer && clusterer.destroy();
+			map && map.destroy();
+			setMapglContext({ mapglInstance: undefined, mapgl: undefined });
+		};
+	}, [setMapglContext]);
 
-    useControlRotateClockwise();
+	useControlRotateClockwise();
 
-    return (
-        <>
-            <MapWrapper />
-            <ControlRotateCounterclockwise />
-        </>
-    );
+	return (
+		<>
+			<MapWrapper />
+			<ControlRotateCounterclockwise />
+		</>
+	);
 }

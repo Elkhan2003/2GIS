@@ -14,7 +14,8 @@
     "@2gis/mapgl-directions": "^2.0.1",
     "@2gis/mapgl-ruler": "^2.0.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.59.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
