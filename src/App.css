@@ -1,0 +1,13 @@
+.App-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.App-button-item {
+    margin: 16px;
+}
+
+.App-map-container {
+    height: calc(100vh - 56px);
+    width: 100%;
+}
